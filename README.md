@@ -25,7 +25,8 @@ Some items, images/text are from
         ```
         [Unit]
         Description=Multifunction Button Thread
-        [Service] Type=simple
+        [Service]
+        Type=simple
         ExecStart=/file/path_to/multifunction_button.py
         Restart=always
         [Install]

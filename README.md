@@ -1,10 +1,6 @@
-# raspberry-pi-single-button-multi-function
+# Raspberry Pi single button multi-function
 
-Script can be used to give a single button on the Raspberry Pi multiple
-functions (with led0/led1 feedback) depending on how many presses, for example 2
-presses to pause a docker service, 4 presses to stop a docker service, and 6 to
-power off. Its setup for a Raspberry Pi 3, but can be used for other Pi models
-as well, just doublecheck which gpio pins to use.
+Script can be used to give a single button on the Raspberry Pi multiple functions (with led0/led1 feedback) depending on how many presses, for example 2 presses to pause a docker service, 4 presses to stop a docker service, and 6 to power off. Its setup for a Raspberry Pi 3, but can be used for other Pi models as well, just doublecheck which gpio pins to use. Depending on your button, one button presses may sometimes register as 2 or 3 presses, if this happens just press a few more times and wait, the script will clear out button presses count when more than 6 is counted. LED0 and LED1 are set to give feedback on which function (2,4 or 6) was chosen.
 
 Some items, images/text are from
 [Howchoo Raspberry Pi power button guide](https://howchoo.com/g/mwnlytk3zmm/how-to-add-a-power-button-to-your-raspberry-pi).
@@ -21,7 +17,7 @@ Some items, images/text are from
    functionality)
 1. Either:
    - Create a new systemd service
-     1. with a new "multibuton.service" file in /etc/systemd/system with contents:
+     1. with a new "multifunction_buton.service" file in /etc/systemd/system with contents:
         ```
         [Unit]
         Description=Multifunction Button Thread
@@ -59,18 +55,18 @@ wires.
 Connect the power button to Pin 5 (GPIO 3/SCL) and Pin 6 (GND) as shown in the
 diagram:
 
-![Connection Diagram](https://raw.githubusercontent.com/davidchilin/raspberry-pi-single-button-multi-function/master/diagrams/pinout.png)
+<img src="https://raw.githubusercontent.com/davidchilin/raspberry-pi-single-button-multi-function/master/diagrams/pinout.png?raw=true" alt="Connection Diagram" width="300" height="auto" align="center" >
 
 ### Is it possible to use another pin other than Pin 5 (GPIO 3/SCL)?
 
 Yes, if you do not need power on functionality for the Pi, you can use gpio
 21/pin 40 or gpio 7/pin 26.
 
-There are two main features of the button using Pin 5/GPIO 3:
+There are three main features of the button using Pin 5/GPIO 3:
 
-1. **Shutdown functionality:** Shut the Pi down safely when the button is
-   pressed. The Pi now consumes zero power.
-1. **Wake functionality:** Turn the Pi back on when the button is pressed again.
+1. **Wake functionality:** Turn the Pi back on when the button is pressed again - only with Pin 5/GPIO3.
+1. **Shutdown functionality:** Shut the Pi down safely when the button is pressed 6 times. The Pi now consumes zero power.
+
 
 The **wake functionality** requires the SCL pin, Pin 5 (GPIO 3). There's simply
 no other pin that can "hardware" wake the Pi from a zero-power state. If you

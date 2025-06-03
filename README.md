@@ -21,11 +21,14 @@ Some items, images/text are from
    functionality)
 1. Either:
    - Create a new systemd service
-     1. with a new "multibuton.service" file in /etc/systemd/system with
-        contents:
-        > > > [Unit] Description=Multifunction Button Thread [Service]
-        > > > Type=simple ExecStart=/file/path_to/multifunction_button.py
-        > > > Restart=always [Install] WantedBy=multi-user.target
+     1. with a new "multibuton.service" file in /etc/systemd/system with contents:
+        >[Unit]
+        >Description=Multifunction Button Thread
+        >[Service] Type=simple
+        >ExecStart=/file/path_to/multifunction_button.py
+        >Restart=always
+        >[Install]
+        >WantedBy=multi-user.target
      2. add execute permission with command:
         `sudo chmod +x /file/path_to/multifunction_button.py`
      3. enable and start the service:

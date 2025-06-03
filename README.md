@@ -13,32 +13,25 @@ Some items, images/text are from
 
 1. [Connect to your Raspberry Pi via SSH](https://howchoo.com/g/mgi3mdnlnjq/how-to-log-in-to-a-raspberry-pi-via-ssh)
 1. Clone this repo:
-   `git clone `https://github.com/davidchilin/raspberry-pi-single-button-multi-function`
+   `git clone https://github.com/davidchilin/raspberry-pi-single-button-multi-function`
 1. Edit lines 25, 30, 35 to perform the functions you want, default is set to
    pause a docker service with 2 presses, 4 will stop the docker service, and 6
    will power off the Pi. **Optional:** Edit line 9 in multifunction_button.py
    to your preferred pin (currently set to pin 5/gpio 3 which has power ON
    functionality)
-1. Either
-   - create a new systemd service
+1. Either:
+   - Create a new systemd service
      1. with a new "multibuton.service" file in /etc/systemd/system with
         contents:
-        <blockquote>
-        [Unit]
-        Description=Multifunction Button Thread
-        [Service]
-        Type=simple
-        ExecStart=/file/path_to/multifunction_button.py
-        Restart=always
-        [Install]
-        WantedBy=multi-user.target
-        </blockquote>
+        > > > [Unit] Description=Multifunction Button Thread [Service]
+        > > > Type=simple ExecStart=/file/path_to/multifunction_button.py
+        > > > Restart=always [Install] WantedBy=multi-user.target
      2. add execute permission with command:
         `sudo chmod +x /file/path_to/multifunction_button.py`
      3. enable and start the service:
         `sudo systemctl enable multifunction_button` then
         `sudo systemctl start multifunction_button`
-   - or Run the setup script, to install and use init.d:
+   - OR Run the setup script, to install and use init.d:
      `./raspberry-pi-single-button-multi-function/script/install`
 
 ## Uninstallation
@@ -64,10 +57,10 @@ diagram:
 
 ### Is it possible to use another pin other than Pin 5 (GPIO 3/SCL)?
 
-Yes if you do not need power on functionality on a Pi 3, you can use gpio 21 is
-pin 40, gpio 7 is pin 26.
+Yes, if you do not need power on functionality for the Pi, you can use gpio
+21/pin 40 or gpio 7/pin 26.
 
-Not for full functionality, no. There are two main features of the power button:
+There are two main features of the button using Pin 5/GPIO 3:
 
 1. **Shutdown functionality:** Shut the Pi down safely when the button is
    pressed. The Pi now consumes zero power.
